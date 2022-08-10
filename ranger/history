@@ -1,0 +1,50 @@
+shell thunm
+shell mv -r ai-notebooks MUZERO_STUFF
+shell mv ai-notebooks MUZERO_STUFF
+shell mv model-based-rl MUZERO_STUFF
+shell mv muzero-cartpole MUZERO_STUFF
+search muzero
+shell git clone https://github.com/Urela/muzero-cartpole.git
+rename muzero.py
+rename network2.py
+q
+rename network1.py
+shell vim network.py
+shell python muzero.py
+shell cp muzero.py BB
+shell git clone https://github.com/Hauf3n/MuZero-PyTorch.git
+rename follower.py
+shell vim
+search based
+
+shell v
+search work
+shell mkdir muzero-atari
+shell vim muzero.py
+shell wget 
+shell 
+search .cache
+shell cd .cache
+search 
+search pip
+search pac
+shell rm *
+shell sudo rm *
+search cache
+open_with 
+shell mkdir stage 1
+delete
+rename stage 1
+search 30003
+shell STHU
+rename GNSSEN002_STNREU001_TSHREN011.pdf
+rename risk_GNSSEN002_STNREU001_TSHREN011.pdf
+rename 1-riskq.pdf
+rename scope_GNSSEN002_STNRENU001_TSHREN011.pdf
+shell thunar
+search 3003
+search worj
+search wor
+search k1
+shell mv K*.png Moriarty
+shell mv k*.png Moriarty
