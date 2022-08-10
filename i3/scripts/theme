@@ -1,0 +1,25 @@
+#! /bin/bash
+
+# -n tells `wal` to skip setting the wallpaper.
+# wal -i Downloads/pics/wallhaven-290969.jpg  -n	
+# while true; do bash theme;sleep 2; done
+# dan-gold-223935.jpg
+
+#feh --randomize --bg-fil ~/Downloads/pics/
+
+#wal -i Downloads/pics   
+
+#export DISPLAY=:0
+
+case "$1" in
+    "op1")
+        feh --randomize --bg-fil ~/Pictures
+        ;;
+    "op2")
+        wal -i ~/Pictures; feh --bg-fil $(cat ~/.cache/wal/wal)
+        ;;
+    "op3")
+        wal -f ~/.cache/wal/colors  # reloads current theme, for new terminals
+        ;;
+    *) echo ".." ;;
+esac

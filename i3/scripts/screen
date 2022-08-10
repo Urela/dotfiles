@@ -1,0 +1,20 @@
+
+
+sleep 1
+xrandr --auto
+STATE=$(xrandr | grep " connected " | awk '{ print$1 }'| grep VGA-1)
+
+if [ "$STATE" == "VGA-1" ]; then
+    # turn off laptop screen
+    xrandr --output LVDS-1 --off  
+
+    # set screen resolution
+    cvt 1920 1080 60
+    xrandr --newmode "1920x1080_60.00" 173.00 1920 2048 2248 2576 1080 1083 1088 1120 -hsync +vsync
+    xrandr --addmode VGA-1 1920x1080_60.00 
+    xrandr --output VGA-1 --mode "1920x1080_60.00" --right-of LVDS-1
+
+    # relaunch polybar
+    ./pol
+    ./.config/i3/scripts/theme op1
+fi

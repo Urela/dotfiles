@@ -1,0 +1,9 @@
+#!/bin/sh
+# This command will break if you rename it to
+# something containing "program you want to run ".
+
+if ! pgrep spotify ; then
+   spotify
+else
+  playerctl play-pause 
+fi

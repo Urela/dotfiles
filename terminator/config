@@ -1,0 +1,22 @@
+[global_config]
+[keybindings]
+[profiles]
+  [[default]]
+    background_color = "#ffffff"
+    background_darkness = 0.17
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    font = Fira Code 10
+    foreground_color = "#000000"
+    show_titlebar = False
+    scrollbar_position = hidden
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]
