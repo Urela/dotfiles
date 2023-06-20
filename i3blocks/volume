@@ -5,6 +5,7 @@
 #
 
 case $BLOCK_BUTTON in
+  1) python audio_changer.py ;; # change audio sources on left click
   3) pactl set-sink-mute @DEFAULT_SINK@ toggle ;; # right click : toggle mute
   4) pactl set-sink-volume @DEFAULT_SINK@ +5% ;; # scroll up : increase vol by 1%
   5) pactl set-sink-volume @DEFAULT_SINK@ -5% ;; # scroll down : decrease vol by 1%

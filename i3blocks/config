@@ -4,6 +4,7 @@ separator_block_width=15
 color=#F3F4F5
 markup=pango
 
+
 [mediaplayer]
 label=♪ 
 signal=10
@@ -12,17 +13,8 @@ instance=spotify
 interval=5
 signal=10
 color=#fed8b1
-color=#585858
+#color=#585858
 
-[calendar]
-command=~/.config/i3blocks/calendar
-interval=1
-#LABEL= 
-DATEFMT=+%a, %d %b %H:%M
-HEIGHT=180
-WIDTH=220
-#align=center
-color=#add8e6
 
 [volume]
 label=VOL 
@@ -36,19 +28,16 @@ command=~/.config/i3blocks/memory
 label=RAM 
 interval=30
 
-[temperature]
-command=$(perl config/i3blocks/temperature)
-label=TEMP
-interval=10
 
-[battery]
-#label=BaT:
-#command=~/.config/i3blocks/battery2
-command=~/.config/i3blocks/battery_x240_1
-interval=10
+[calendar]
+command=~/.config/i3blocks/calendar
+interval=1
+#LABEL= 
+DATEFMT=+%a, %d %b %H:%M
+#HEIGHT=180
+#WIDTH=220
+#align=center
+min_width=1970
+align=left
+color=#add8e6
 
-[battery2]
-#label=BaT:
-#command=~/.config/i3blocks/battery2
-command=~/.config/i3blocks/battery_x240_2
-interval=10

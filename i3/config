@@ -1,3 +1,4 @@
+
 #========================================================================= #
 #   ██╗██████╗      ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗ 
 #   ██║╚════██╗    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝ 
@@ -22,9 +23,7 @@ font pango:DejaVu Sans Mono 11px
 ####################################################################
 
 # start dmenu (a program launcher)
-#bindsym $mod+d exec rofi -location 0 -show run -sidebar-mode 
-bindsym $mod+d exec ./.config/rofi/launchers/text/launcher.sh
-
+bindsym $mod+d exec rofi -location 0 -show run -sidebar-mode 
 
 # start a terminal
 bindsym $mod+Return exec kitty
@@ -35,18 +34,10 @@ bindsym $mod+r exec kitty -e 'ranger'
 
 bindsym $mod+g exec gsimplecal
 bindsym $mod+n exec nitrogen
-#bindsym $mod+y exec xrandr --auto
-bindsym $mod+y exec ~/.screenlayout/single.sh
-
-#Cape Town
-bindsym $mod+Shift+y exec ~/.screenlayout/CapeTown.sh
-#bindsym $mod+Shift+y exec ~/.screenlayout/Pretoria.sh
-#bindsym $mod+Shift+y exec ~/.screenlayout/double.sh
-
-bindsym $mod+b exec gnome-control-center # to check battary status
 
 # personal/custom scripts
 bindsym $mod+a exec ~/.config/i3/scripts/theme op1
+bindsym $mod+y exec xrandr --auto
 bindsym $mod+Shift+a exec ~/.config/i3/scripts/theme op2
 bindsym $mod+Ctrl+a exec ~/.config/i3/scripts/theme op3
 
@@ -64,6 +55,8 @@ bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'm
 set $refresh_i3status killall -SIGUSR1 i3status
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+
+bindsym $mod+t exec python ~/.config/i3blocks/audio_changer.py
 bindsym $mod+p exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym $mod+o exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 
@@ -188,7 +181,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-# hibinate laptop
+# suspend desktop, wakes on keyboard
 bindsym $mod+Shift+Escape exec --no-startup-id systemctl suspend
 
 #bindsym $mod+r mode "resize"
@@ -197,8 +190,8 @@ bindsym $mod+Shift+Escape exec --no-startup-id systemctl suspend
 ####################################################################
 #
 # adding gaps between tiles
-gaps inner 5
-gaps outer 5
+gaps inner 15
+gaps outer 10
 
 bindsym $mod+i			    gaps outer current plus  5 ; gaps inner current plus  2
 bindsym $mod+Shift+i		gaps outer current minus 5 ; gaps inner current minus 2
@@ -206,7 +199,7 @@ bindsym $mod+Shift+p		gaps inner current set 5; gaps outer current set 5
 bindsym $mod+Shift+o		gaps inner current set 0; gaps outer current set 0
 
 # adds rounder corners
-border_radius 10
+#border_radius 10
  
 # disabling window boarder
 #not floating
@@ -244,16 +237,16 @@ mode "resize" {
 ####################################################################
 # i3 bar
 ####################################################################
-bar {
+bar{
 
         #mode hide  
         #hidden_state hide
         #modifier Mod1
 
         #output primary
-        tray_output primary
         status_command i3blocks
-        font pango:DejaVu Sans Mono 12px
+        tray_output primary
+        font pango:DejaVu Sans Mono 13px
         #font pango: Source Code Mono 11px 
         position top
 
@@ -277,16 +270,22 @@ bar {
 ## Autostart applications 
 ####################################################################
 
+# start pomotroid 'minised in scratchpad
+exec --no-startup-id pomotroid --disable-gpu-sandbox
+for_window [class="pomotroid"] , move scratchpad
+exec --no-startup-id spotify
+
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id picom -b # adds transparencey
+#exec --no-startup-id picom -b # adds transparencey
 exec --no-startup-id setxkbmap -option caps:escape # remaps caps to escape
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-
+#exec --no-startup-id xrandr --output DP-1 --off --output HDMI-1 --off --output HDMI-2 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-2 --mode 1920x1080 --pos 0x0 --rotate normal
+exec --no-startup-id bash ~/.screenlayout/output.sh
 ####################################################################
 # Workspace specific settings 
 ####################################################################
@@ -301,11 +300,12 @@ for_window [title="Picture-in-Picture"] sticky enable
 #  Use xprop to determine title/class of a window
 # Making images floating
 for_window [title="^Figure " ] floating enable   # matplotlib images
+for_window [title="tkinter" ] floating enable   # matplotlib images
 #for_window [class="gnome-calculator" ] floating enable   # matplotlib images
 #for_window [title="gnome-calculator" ] floating enable   # matplotlib images
 for_window [class="calculator" ] floating enable   
 #for_window [class="qutebrowser" ] floating enable   
-for_window [class="Pavucontrol" ] floating enable   
+#for_window [class="Pavucontrol" ] floating enable   
 for_window [class="Arandr" ] floating enable   
 
 for_window [title="Bluetooth Devices"] floating enable
@@ -315,19 +315,15 @@ for_window [title="urxvt"] floating enable
 # launch spotify in scratchpad 
 bindsym $mod+m [con_mark="music"] scratchpad show
 for_window [class="Spotify"] mark "music", move scratchpad
-for_window [class="Spotify"] resize set 1100 580
+for_window [class="Spotify"] resize set 2100 1000
 #for_window [class="Spotify"] move absolute position center
 
 ####################################################################
 # wallpaper
 ####################################################################
 
-#exec_always feh --bg-center ~/Pictures/federico-di-dio-photography-Ku7Ycce1lrE-unsplash.jpg
-exec_always feh --bg-scale ~/Pictures/joe-gardner-1387529-unsplash.jpg
-#exec_always feh --bg-scale ~/Pictures/owen-lystrup-6vDctjBtBbg-unsplash.jpg
-#exec_always feh --bg-fill ~/Pictures/BrGxtxG.jpg
-#exec_always feh --bg-fill ~/Pictures/scott-ogle-dxZfq6Xuz5c-unsplash.jpg
-#exec_always feh --bg-fill ~/Pictures/annie-spratt-176308.jpg
+#exec_always feh --bg-scale ~/Pictures/joe-gardner-1387529-unsplash.jpg
+exec_always feh --bg-scale ~/Pictures/macos-monterey-3840x2160_897687-mm-90.jpg
 
 
 ### fav wallpapers
